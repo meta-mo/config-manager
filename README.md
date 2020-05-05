@@ -1,5 +1,7 @@
 # contentful-config
 
+Fetching JSON from Contentful to use the same configs across multiple projects and repositories.
+
 ## Installation
 
 You can install this using npm:
