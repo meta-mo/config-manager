@@ -7,7 +7,7 @@ Fetching JSON from Contentful to use the same configs across multiple projects a
 You can install this using npm:
 
 ```bash
-npm install contentful-config -g
+$ npm install contentful-config -g
 ```
 
 You can also use the NPX without installing it globally.
@@ -22,6 +22,8 @@ Add Contentful space id and access token to the .env file in the same directory 
 CONTENTFUL_SPACE_ID=up61khjnndzm
 CONTENTFUL_ACCESS_TOKEN=FeBoFnhmElUGRC76v-2T6DxOHhhhhg9FyiwWVxVs148
 ```
+
+You can also applying when command execution without creating .env.
 
 ### .cntconfigrc.json
 
@@ -84,13 +86,19 @@ Execute the following command in the same directory as the configuration file.
 Execute the default:
 
 ```bash
-contentful-config
+$ contentful-config
 ```
 
 Fetch only the local configurations:
 
 ```bash
-contentful-config local
+$ contentful-config local
+```
+
+Applying the Access Token at command execution:
+
+```bash
+$ contentful-config default --spaceId up61khjnndzm --accessToken FeBoFnhmElUGRC76v-2T6DxOHhhhhg9FyiwWVxVs148
 ```
 
 ## Development Status

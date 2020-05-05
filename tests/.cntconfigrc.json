@@ -7,6 +7,18 @@
         "options": {
           "order": "fields.type",
           "fields.type": "dev"
+        }
+      }
+    ]
+  },
+  "local": {
+    "dir": "./configs",
+    "models": [
+      {
+        "name": "env",
+        "options": {
+          "order": "fields.type",
+          "fields.type": "local"
         },
         "specificField": "json",
         "firstOnly": true
@@ -28,17 +40,6 @@
         "options": {
           "order": "fields.type",
           "fields.display": true
-        }
-      }
-    ]
-  },
-  "local": {
-    "dir": "./configs",
-    "models": [
-      {
-        "name": "env",
-        "options": {
-          "order": "fields.type"
         }
       }
     ]

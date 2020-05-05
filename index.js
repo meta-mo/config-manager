@@ -5,11 +5,20 @@ require('dotenv').config()
 const fs = require('fs')
 const path = require('path')
 const contentful = require('contentful')
+const commandLineArgs = require('command-line-args')
+
+const optionDefinitions = [
+  { name: 'env', alias: 'e', type: String, defaultOption: true, defaultValue: 'default' },
+  { name: 'spaceId', alias: 's', type: String, defaultValue: '' },
+  { name: 'accessToken', alias: 'a', type: String, defaultValue: '' }
+]
+const options = commandLineArgs(optionDefinitions)
+
 const rc = require(process.cwd() + '/.cntconfigrc.json')
 
 const client = contentful.createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+  space: options.spaceId ? options.spaceId : process.env.CONTENTFUL_SPACE_ID,
+  accessToken: options.accessToken ? options.accessToken : process.env.CONTENTFUL_ACCESS_TOKEN
 })
 
 async function saveContentfulJSON(dir, name, options = {}, specificField = '', firstOnly = false) {
@@ -33,7 +42,7 @@ async function saveContentfulJSON(dir, name, options = {}, specificField = '', f
 }
 
 async function main() {
-  await rc.default.models.forEach(async (model) => {
+  await rc[options.env].models.forEach(async (model) => {
     await saveContentfulJSON(rc.default.dir, model.name, model.options, model.specificField, model.firstOnly)
   })
 }

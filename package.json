@@ -4,7 +4,7 @@
   "description": "Fetching JSON from Contentful to use the same configs across multiple projects and repositories.",
   "main": "index.js",
   "scripts": {
-    "test": "cd tests && node ../index.js"
+    "test": "cd tests && node ../index.js local"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/meta-mo/contentful-config#readme",
   "dependencies": {
+    "command-line-args": "^5.1.1",
     "contentful": "^7.14.4",
     "dotenv": "^8.2.0"
   },
