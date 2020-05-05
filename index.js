@@ -43,7 +43,7 @@ async function saveContentfulJSON(dir, name, options = {}, specificField = '', f
 
 async function main() {
   await rc[options.env].models.forEach(async (model) => {
-    await saveContentfulJSON(rc.default.dir, model.name, model.options, model.specificField, model.firstOnly)
+    await saveContentfulJSON(rc[options.env].dir, model.name, model.options, model.specificField, model.firstOnly)
   })
 }
 main()
