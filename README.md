@@ -1,6 +1,4 @@
-# config-manager
-
-Fetching JSON from Contentful to use the same configs across multiple projects and repositories.
+# contentful-config
 
 ## Installation
 
