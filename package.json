@@ -1,0 +1,35 @@
+{
+  "name": "contentful-config",
+  "version": "0.1.0",
+  "description": "Fetching JSON from Contentful to use the same configs across multiple projects and repositories.",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd tests && node ../index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meta-mo/contentful-config.git"
+  },
+  "author": "Passionate Engineer <ryozu256@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meta-mo/contentful-config/issues"
+  },
+  "homepage": "https://github.com/meta-mo/contentful-config#readme",
+  "dependencies": {
+    "contentful": "^7.14.4",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4"
+  },
+  "bin": {
+    "contentful-config": "index.js"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "default": {
+    "dir": "./configs",
+    "models": [
+      {
+        "name": "env",
+        "options": {
+          "order": "fields.type",
+          "fields.type": "dev"
+        },
+        "specificField": "json",
+        "firstOnly": true
+      },
+      {
+        "name": "resourceTypes",
+        "options": {
+          "order": "fields.type"
+        }
+      },
+      {
+        "name": "resourceChildTypes",
+        "options": {
+          "order": "fields.type"
+        }
+      },
+      {
+        "name": "coinRates",
+        "options": {
+          "order": "fields.type",
+          "fields.display": true
+        }
+      }
+    ]
+  },
+  "local": {
+    "dir": "./configs",
+    "models": [
+      {
+        "name": "env",
+        "options": {
+          "order": "fields.type"
+        }
+      }
+    ]
+  }
+}

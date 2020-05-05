@@ -6,46 +6,76 @@ Fetching JSON from Contentful to use the same configs across multiple projects a
 
 You can install this using npm:
 
+```bash
+npm install contentful-config -g
 ```
-$ npm install contentful-config -g
-```
+
+You can also use the NPX without installing it globally.
 
 ## Configuration
 
+### .env
+
+Add Contentful space id and access token to the .env file in the same directory as package.json:
+
+```env
+CONTENTFUL_SPACE_ID=up61khjnndzm
+CONTENTFUL_ACCESS_TOKEN=FeBoFnhmElUGRC76v-2T6DxOHhhhhg9FyiwWVxVs148
+```
+
+### .cntconfigrc.json
+
 Create a file as **.cntconfigrc.json** as in the following code:
 
-```
+```json
 {
-  "spaceId": "up61stvjnndzm",
-  "dir": "./configs",
-  "default": [
-    {
-      "model": "env",
-      "options": {
-        "order": "fields.type"
+  "default": {
+    "dir": "./configs",
+    "models": [
+      {
+        "name": "env",
+        "options": {
+          "order": "fields.type",
+          "fields.type": "dev"
+        },
+        "specificField": "json",
+        "firstOnly": true
       },
-      "firstOnly": true,
-      "specificField": "json"
-    },
-    {
-      "model": "types",
-      "options": {
-        "order": "fields.type"
+      {
+        "name": "resources",
+        "options": {
+          "order": "fields.type"
+        }
       }
-    }
-  ]
+    ]
+  },
+  "local": {
+    "dir": "./configs",
+    "models": [
+      {
+        "name": "env",
+        "options": {
+          "order": "fields.type"
+          "fields.type": "local"
+        },
+        "specificField": "json",
+        "firstOnly": true
+      }
+    ]
+  }
 }
+
 ```
 
-| Parameter | Description | Example |
-| ---- | ---- | ---- |
-| spaceId | Contentful's space ID | up61stvjnndzm |
-| dir | Destination of the configs | ./configs |
-| default | When the command is executed, if nothing is specified, the default is applied. If specified at command execution, one of the configurations will be applied. | default / local / production |
-| default.model | Output contentful model name. This model name will be the file name. |  |
-| default.options | See search-parameters in Contentful's getEntries https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset |  |
-| default.firstOnly | Fetch only a single from an array. (it becomes an object type) | false |
-| default.specificField | Specify this if you want data only for fields in the model. | json |
+| Parameter | Description | Default |
+| ---- | ---- | ---- | --- |
+| * | When the command is executed, if nothing is specified, the default is applied. If specified at command execution, one of the configurations will be applied. | default |
+| *.dir | Destination of the configs. | '' |
+| *.models | Contentful models objects. |  |
+| *.models.name | Output Contentful model name. This model name will be the file name. |  |
+| *.models.options | See search-parameters in Contentful's getEntries. https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset | {} |
+| *.models.specificField | Specify this if you want data only for fields in the model. | '' |
+| *.models.firstOnly | Fetch only a single from an array. (it becomes an object type) | false |
 
 ## Usage
 
@@ -53,15 +83,25 @@ Execute the following command in the same directory as the configuration file.
 
 Execute the default:
 
-```
-$ contentful-config
+```bash
+contentful-config
 ```
 
 Fetch only the local configurations:
 
+```bash
+contentful-config local
 ```
-$ contentful-config local
-```
+
+## Development Status
+
+See tasks on [Github Projects](https://github.com/meta-mo/contentful-config/projects/1)
+
+## Tests
+
+1. Create a model and data for Contentful with reference to /tests/.cntconfigrc.json.
+2. Create .env file insted of your Contentful's space id and access token in /tests/.
+3. Run following command in / `npm install && npm run test`
 
 ## License
 
