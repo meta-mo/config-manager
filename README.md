@@ -65,4 +65,4 @@ $ contentful-config local
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
