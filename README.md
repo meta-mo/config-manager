@@ -2,7 +2,7 @@
 
 Fetching JSON from Contentful to use the same configs across multiple projects and repositories.
 
-# Installation
+## Installation
 
 You can install this using npm:
 
@@ -10,7 +10,7 @@ You can install this using npm:
 $ npm install contentful-config -g
 ```
 
-# Configuration
+## Configuration
 
 Create a file as **.cntconfigrc.json** as in the following code:
 
@@ -49,7 +49,7 @@ Create a file as **.cntconfigrc.json** as in the following code:
 | models.name | Output contentful model name. This model name will be the file name. |  |
 | models.options | See search-parameters in Contentful's getEntries https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset |  |
 
-# Usage
+## Usage
 
 Execute the following command in the same directory as the configuration file.
 
