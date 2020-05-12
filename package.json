@@ -1,6 +1,6 @@
 {
   "name": "contentful-config",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Fetching JSON from Contentful to use the same configs across multiple projects and repositories.",
   "main": "index.js",
   "scripts": {
