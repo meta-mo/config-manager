@@ -41,7 +41,10 @@ Create a file as **.cntconfigrc.json** as in the following code:
           "fields.type": "dev"
         },
         "specificField": "json",
-        "firstOnly": true
+        "firstOnly": true,
+        "filterUseFields": [
+          "contentful.endpoint"
+        ]
       },
       {
         "name": "resources",
@@ -57,7 +60,7 @@ Create a file as **.cntconfigrc.json** as in the following code:
       {
         "name": "env",
         "options": {
-          "order": "fields.type"
+          "order": "fields.type",
           "fields.type": "local"
         },
         "specificField": "json",
@@ -78,6 +81,7 @@ Create a file as **.cntconfigrc.json** as in the following code:
 | *.models.options | See search-parameters in Contentful's getEntries. https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset | {} |
 | *.models.specificField | Specify this if you want data only for fields in the model. | '' |
 | *.models.firstOnly | Fetch only a single from an array. (it becomes an object type) | false |
+| *.models.filterUseFields | Fetch only the specified parameters from the objects in the array after specificField parameter. | undefind |
 
 ## Usage
 

@@ -21,16 +21,14 @@
           "fields.type": "local"
         },
         "specificField": "json",
-        "firstOnly": true
+        "firstOnly": true,
+        "filterUseFields": [
+          "graphql.endpoint",
+          "help.url"
+        ]
       },
       {
         "name": "resourceTypes",
-        "options": {
-          "order": "fields.type"
-        }
-      },
-      {
-        "name": "resourceChildTypes",
         "options": {
           "order": "fields.type"
         }

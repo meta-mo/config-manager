@@ -6,6 +6,7 @@ const fs = require('fs')
 const path = require('path')
 const contentful = require('contentful')
 const commandLineArgs = require('command-line-args')
+const merge = require('deepmerge')
 
 const optionDefinitions = [
   { name: 'env', alias: 'e', type: String, defaultOption: true, defaultValue: 'default' },
@@ -21,7 +22,7 @@ const client = contentful.createClient({
   accessToken: options.accessToken ? options.accessToken : process.env.CONTENTFUL_ACCESS_TOKEN
 })
 
-async function saveContentfulJSON(dir, name, options = {}, specificField = '', firstOnly = false) {
+async function saveContentfulJSON(dir, name, options = {}, specificField = '', firstOnly = false, filterUseFields = null) {
   let items = await client.getEntries({
     content_type: name,
     ...options
@@ -35,6 +36,30 @@ async function saveContentfulJSON(dir, name, options = {}, specificField = '', f
     }
   })
 
+  if (filterUseFields) {
+    items = items.map(item => {
+      let newItem = {}
+      filterUseFields.forEach(field => {
+        try {
+          let unit = {}
+          const fieldKeys = field.split('.')
+          fieldKeys.forEach((_, index) => {
+            let key = ''
+            for (let i = 0; index >= i; i++) {
+              key += '.' + fieldKeys[i]
+            }
+            const value = eval('item' + key)
+            eval('unit' + key + '=' + (typeof value === 'object' ? '{}' : 'value'))
+          })
+          newItem = merge(newItem, unit)
+        } catch (e) {
+          throw new Error(`${field} parameter does not exist.`)
+        }
+      })
+      return newItem
+    })
+  }
+
   const jsonData = JSON.stringify(firstOnly ? items[0] : items)
 
   fs.mkdirSync(dir, { recursive: true })
@@ -43,7 +68,7 @@ async function saveContentfulJSON(dir, name, options = {}, specificField = '', f
 
 async function main() {
   await rc[options.env].models.forEach(async (model) => {
-    await saveContentfulJSON(rc[options.env].dir, model.name, model.options, model.specificField, model.firstOnly)
+    await saveContentfulJSON(rc[options.env].dir, model.name, model.options, model.specificField, model.firstOnly, model.filterUseFields)
   })
 }
 main()

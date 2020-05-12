@@ -19,6 +19,7 @@
   "dependencies": {
     "command-line-args": "^5.1.1",
     "contentful": "^7.14.4",
+    "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
