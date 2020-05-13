@@ -9,7 +9,7 @@ const commandLineArgs = require('command-line-args')
 const merge = require('deepmerge')
 
 const optionDefinitions = [
-  { name: 'env', alias: 'e', type: String, defaultOption: true, defaultValue: 'default' },
+  { name: 'env', alias: 'e', type: String, defaultOption: true },
   { name: 'spaceId', alias: 's', type: String, defaultValue: '' },
   { name: 'accessToken', alias: 'a', type: String, defaultValue: '' }
 ]
@@ -67,8 +67,10 @@ async function saveContentfulJSON(dir, name, options = {}, specificField = '', f
 }
 
 async function main() {
-  await rc[options.env].models.forEach(async (model) => {
-    await saveContentfulJSON(rc[options.env].dir, model.name, model.options, model.specificField, model.firstOnly, model.filterUseFields)
+  const env = options.env || process.env.CONTENTFUL_CONFIG_ENV
+
+  await rc[env].models.forEach(async (model) => {
+    await saveContentfulJSON(rc[env].dir, model.name, model.options, model.specificField, model.firstOnly, model.filterUseFields)
   })
 }
 main()

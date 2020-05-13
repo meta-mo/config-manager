@@ -4,7 +4,7 @@
   "description": "Fetching JSON from Contentful to use the same configs across multiple projects and repositories.",
   "main": "index.js",
   "scripts": {
-    "test": "cd tests && node ../index.js local"
+    "test": "cd tests && node ../index.js"
   },
   "repository": {
     "type": "git",

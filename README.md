@@ -4,26 +4,35 @@ Fetching JSON from Contentful to use the same configs across multiple projects a
 
 ## Installation
 
-You can install this using npm:
+Install using npm as devDependency.
 
 ```bash
-$ npm install contentful-config -g
+$ npm install contentful-config --save-dev
 ```
 
-You can also use the NPX without installing it globally.
+Add a command to the scripts of package.json.
+
+```json
+  "scripts": {
+    "serve": "npm run config"
+    "config": "contentful-config"
+  },
+```
 
 ## Configuration
 
 ### .env
 
-Add Contentful space id and access token to the .env file in the same directory as package.json:
+Environment variables are automatically loaded by creating .env in the same directory as package.json.
+You can also use an existing environment variable without using .env.
 
 ```env
 CONTENTFUL_SPACE_ID=up61khjnndzm
 CONTENTFUL_ACCESS_TOKEN=FeBoFnhmElUGRC76v-2T6DxOHhhhhg9FyiwWVxVs148
+CONTENTFUL_CONFIG_ENV=local
 ```
 
-You can also applying when command execution without creating .env.
+You can also apply parameters when command execution without creating .env.
 
 ### .cntconfigrc.json
 
@@ -31,14 +40,14 @@ Create a file as **.cntconfigrc.json** as in the following code:
 
 ```json
 {
-  "default": {
+  "local": {
     "dir": "./configs",
     "models": [
       {
         "name": "env",
         "options": {
           "order": "fields.type",
-          "fields.type": "dev"
+          "fields.type": "local"
         },
         "specificField": "json",
         "firstOnly": true,
@@ -54,14 +63,14 @@ Create a file as **.cntconfigrc.json** as in the following code:
       }
     ]
   },
-  "local": {
+  "dev": {
     "dir": "./configs",
     "models": [
       {
         "name": "env",
         "options": {
           "order": "fields.type",
-          "fields.type": "local"
+          "fields.type": "dev"
         },
         "specificField": "json",
         "firstOnly": true
@@ -74,8 +83,8 @@ Create a file as **.cntconfigrc.json** as in the following code:
 
 | Parameter | Description | Default |
 | ---- | ---- | ---- | --- |
-| * | When the command is executed, if nothing is specified, the default is applied. If specified at command execution, one of the configurations will be applied. | default |
-| *.dir | Destination of the configs. | '' |
+| * | The environment specified by the command execution or environment variable is selected. | '' |
+| *.dir | Destination of the config file. | '' |
 | *.models | Contentful models objects. |  |
 | *.models.name | Output Contentful model name. This model name will be the file name. |  |
 | *.models.options | See search-parameters in Contentful's getEntries. https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset | {} |
@@ -83,26 +92,28 @@ Create a file as **.cntconfigrc.json** as in the following code:
 | *.models.firstOnly | Fetch only a single from an array. (it becomes an object type) | false |
 | *.models.filterUseFields | Fetch only the specified parameters from the objects in the array after specificField parameter. | undefind |
 
+### .gitignore
+
+Add the destination directory of the config file to .gitignore.
+
+```env
+configs/
+```
+
 ## Usage
 
 Execute the following command in the same directory as the configuration file.
 
-Execute the default:
+### Execute with environment variables
 
 ```bash
-$ contentful-config
+$ npm run config
 ```
 
-Fetch only the local configurations:
+### Execute without environment variables
 
 ```bash
-$ contentful-config local
-```
-
-Applying the Access Token at command execution:
-
-```bash
-$ contentful-config default --spaceId up61khjnndzm --accessToken FeBoFnhmElUGRC76v-2T6DxOHhhhhg9FyiwWVxVs148
+$ npm run config -- dev --spaceId up61khjnndzm --accessToken FeBoFnhmElUGRC76v-2T6DxOHhhhhg9FyiwWVxVs148
 ```
 
 ## Development Status
